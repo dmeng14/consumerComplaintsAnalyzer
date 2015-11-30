@@ -71,20 +71,49 @@
 				summarized in the table below. Data representing the most recent 10,000 complaints
 				submitted to CFPB.
 				</p></blockquote>
-				
 				<p>&nbsp;</p>
 				
-
-
+				<table>
+					<tr>
+						<th>Issues</th>
+						<th>Number of Complaints</th>
+					</tr>
 
 EOF;
-echo $html;
+echo $html;		
 
-
-				
 
 $strsql="call countIssues('Debt collection')";
 generateTable($strsql);
+
+$html =<<< EOF
+			<p>&nbsp;</p>
+			<h5>Export Data</h5>
+			
+				<a href="debtCollectionXMLexport.php" class="button">EXCEL</a>
+				<a href="#" class="button button-reversed">PDF</a>
+				
+			<p>&nbsp;</p>
+EOF;
+echo $html;		
+
+
+ 	$html =<<< EOF
+			<p>&nbsp;</p>
+			<footer class="clear">
+				<p>&copy; CSCI1000 Database System Course Project by Dan Meng, Weijia Sun, Yao Jin, Rui Sun.
+				<a href="http://zypopwebtemplates.com/">Free CSS Templates</a> by ZyPOP</p>
+			</footer>
+
+		</section>
+
+		<div class="clear"></div>
+
+	</section>
+	</body>
+	</html>
+EOF;
+echo $html;
 
 function generateTable($strsql) {
  $mysql_server_name="localhost"; 
@@ -105,12 +134,10 @@ function generateTable($strsql) {
 	// fetch sql result
 	$row=mysql_fetch_row($result);
 	
-	 
-	echo '<table>';
 
 	// ??????
 	echo "</b><tr></b>";
-	for ($i=0; $i<mysql_num_fields($result); $i++)
+	for ($i=2; $i<mysql_num_fields($result); $i++)
 	{
 		echo '<td><b>'.
 		mysql_field_name($result, $i);
@@ -141,20 +168,6 @@ function generateTable($strsql) {
 	// ????
 	mysql_close($conn);  
 }
- 	$html =<<< EOF
-			<p>&nbsp;</p>
-			<footer class="clear">
-				<p>&copy; CSCI1000 Database System Course Project by Dan Meng, Weijia Sun, Yao Jin, Rui Sun.
-				<a href="http://zypopwebtemplates.com/">Free CSS Templates</a> by ZyPOP</p>
-			</footer>
 
-		</section>
 
-		<div class="clear"></div>
-
-	</section>
-	</body>
-	</html>
-EOF;
-echo $html;
 ?>
