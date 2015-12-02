@@ -2,9 +2,11 @@
  
 $strsql="call countIssues('Debt collection')";
 
-exportTable($strsql);
+$product = "Debt collection";
 
-function exportTable($strsql) {
+exportTable($strsql, $product);
+
+function exportTable($strsql, $product) {
 	$mysql_server_name="localhost"; 
 	$mysql_username="root"; 
 	$mysql_password=""; 
@@ -22,7 +24,7 @@ function exportTable($strsql) {
 	header("Content-Disposition: attachment; filename=".$savename.".$file_ending"); 
 	//header("Pragma: no-cache"); 
 	$now_date = date("Y-m-j H:i:s"); 
-	$title = "Database Name:$mysql_server_name,Product Type:$strsql,Date:$now_date"; 
+	$title = "Database Name:$mysql_server_name,Product Type:$product,Date:$now_date"; 
 	$result=mysql_db_query($mysql_database, $strsql, $conn);
 	
 	echo("$title\n"); 

@@ -4,7 +4,7 @@
 	<html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<title>anatine - a free css template</title>
+	<title>Analyser</title>
 	<link rel="stylesheet" href="styles.css" type="text/css" />
 
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
@@ -14,20 +14,20 @@
 			<aside id="sidebar" class="column-left">
 
 			<header>
-				<h1><a href="#">anatine</a></h1>
+				<h1><a href="#">Analyser</a></h1>
 
-				<h2>Welcome to my website!</h2>
+				<h2>for consumer complaints analysis!</h2>
 				
 			</header>
 
 			<nav id="mainnav">
 					<ul>
-                            		<li><a href="index.php">Home</a></li>
-                           		 <li><a href="examples.php">Examples</a></li>
-
-                            		<li><a href="#">Solutions</a></li>
-                            		<li><a href="#">Contact</a></li>
-													</ul>
+							<li><a href="index.php">Home</a></li>
+							<li><a href="debtCollection.php">Debt collection</a></li>
+							<li><a href="creditReporting.php">Credit reporting</a></li>
+							<li><a href="consumerLoan.php">Consumer loan</a></li>
+							<li><a href="moneyTransfer.php">Money transfers</a></li>
+					</ul>
 			</nav>
 
 			
@@ -38,23 +38,56 @@
 			<article>
 				
 					
-				<h3>Code and blockquote</h3>
+				<h3>examples</h3>
 
-				<blockquote><p>Mauris sit amet tortor in urna tincidunt aliquam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p></blockquote>
-				
+				<blockquote><p>
+				The number of complaints relating to the issues of this financial product are
+				summarized in the table below. Data representing the most recent 10,000 complaints
+				submitted to CFPB.
+				</p></blockquote>
 				<p>&nbsp;</p>
 				
-
-
+				<table>
+					<tr>
+						<th>Issues</th>
+						<th>Number of Complaints</th>
+					</tr>
 
 EOF;
-echo $html;
+echo $html;		
 
 
-				
-
-$strsql="call countIssues('Credit reporting')";
+$strsql="call countIssues('Debt collection')";
 generateTable($strsql);
+
+$html =<<< EOF
+			<p>&nbsp;</p>
+			<h5>Export Data</h5>
+			
+				<a href="debtCollectionXMLexport.php" class="button">EXCEL</a>
+				<a href="#" class="button button-reversed">PDF</a>
+				
+			<p>&nbsp;</p>
+EOF;
+echo $html;		
+
+
+ 	$html =<<< EOF
+			<p>&nbsp;</p>
+			<footer class="clear">
+				<p>&copy; CSCI1000 Database System Course Project by Dan Meng, Weijia Sun, Yao Jin, Rui Sun.
+				<a href="http://zypopwebtemplates.com/">Free CSS Templates</a> by ZyPOP</p>
+			</footer>
+
+		</section>
+
+		<div class="clear"></div>
+
+	</section>
+	</body>
+	</html>
+EOF;
+echo $html;
 
 function generateTable($strsql) {
  $mysql_server_name="localhost"; 
@@ -75,12 +108,10 @@ function generateTable($strsql) {
 	// fetch sql result
 	$row=mysql_fetch_row($result);
 	
-	 
-	echo '<table>';
 
 	// ??????
 	echo "</b><tr></b>";
-	for ($i=0; $i<mysql_num_fields($result); $i++)
+	for ($i=2; $i<mysql_num_fields($result); $i++)
 	{
 		echo '<td><b>'.
 		mysql_field_name($result, $i);
@@ -111,20 +142,6 @@ function generateTable($strsql) {
 	// ????
 	mysql_close($conn);  
 }
- 	$html =<<< EOF
-			<p>&nbsp;</p>
-			<footer class="clear">
-				<p>&copy; CSCI1000 Database System Course Project by Dan Meng, Weijia Sun, Yao Jin, Rui Sun.
-				<a href="http://zypopwebtemplates.com/">Free CSS Templates</a> by ZyPOP</p>
-			</footer>
 
-		</section>
 
-		<div class="clear"></div>
-
-	</section>
-	</body>
-	</html>
-EOF;
-echo $html;
 ?>

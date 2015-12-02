@@ -14,7 +14,7 @@
 			<aside id="sidebar" class="column-left">
 
 			<header>
-				<h1><a href="#">Analyser</a></h1>
+				<h1><a href="index.php">Analyser</a></h1>
 
 				<h2>for consumer complaints analysis!</h2>
 				
@@ -23,36 +23,11 @@
 			<nav id="mainnav">
 					<ul>
 							<li><a href="index.php">Home</a></li>
-							<form action="debtCollection.php" method="post">
-								<li><input id="submit" type="submit" name="product" value="Debt collection"/></li>
-							</form>
-							<form action="creditReporting.php" method="post">
-								<li><input id="submit" type="submit" name="product" value="Credit reporting"/></li>
-							</form>	
-							<form>
-								<li><input id="submit" type="submit" name="product" value="Consumer loan"/></li>
-							</form>	
-							<form>
-							<li><input id="submit" type="submit" name="product" value="Money transfers"/></li>
-							</form>	
-							<form>
-							<li><input id="submit" type="submit" name="product" value="Mortgage"/></li>
-							</form>	
-							<form>
-							<li><input id="submit" type="submit" name="product" value="Bank account or service"/></li>
-							</form>	
-							<form>
-							<li><input id="submit" type="submit" name="product" value="Credit card"/></li>
-							</form>	
-							<form>
-							<li><input id="submit" type="submit" name="product" value="Student loan"/></li>
-							</form>	
-							<form>
-							<li><input id="submit" type="submit" name="product" value="Payday loan"/></li>
-							</form>	
-							<form>
-							<li><input id="submit" type="submit" name="product" value="Prepaid card"/></li>
-							</form>
+							<li class="selected-item"><a href="debtCollection.php">Debt collection</a></li>
+							<li><a href="creditReporting.php">Credit reporting</a></li>
+							<li><a href="consumerLoan.php">Consumer loan</a></li>
+							<li><a href="moneyTransfer.php">Money transfers</a></li>
+
 					</ul>
 			</nav>
 
