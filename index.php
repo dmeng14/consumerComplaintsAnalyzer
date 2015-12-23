@@ -1,4 +1,6 @@
  <?php
+	//import config.php
+	
  	$html =<<< EOF
 	<!DOCTYPE html>
 <html>
@@ -26,11 +28,17 @@
   				<ul>
                             
 							<li class="selected-item"><a href="index.php">Home</a></li>
+							
+							<li class="category-item"><a>Financial Products</a></li>
 							<li><a href="debtCollection.php">Debt collection</a></li>
 							<li><a href="creditReporting.php">Credit reporting</a></li>
 							<li><a href="consumerLoan.php">Consumer loan</a></li>
 							<li><a href="moneyTransfer.php">Money transfers</a></li>
-
+							
+							<li class="category-item"><a>Financial Companies</a></li>
+							<li><a href="chase.php">Chase</a></li>
+							<li><a href="boa.php">Bank of America</a></li>
+							<li><a href="wf.php">Wells Fargo</a></li>
 							
 													
           </ul>
@@ -75,6 +83,16 @@
 								<li>Payday loan</li>
 								<li>Prepaid card</li>
             </ul>
+						<p style="text-indent: 3em;">
+						The available financial products from the main financial companies are also summarised on the website
+						for the convenience of consumers to compare. The financial companies compared includes:
+						</p>		
+            <ul class="styledlist">
+                <li>Chase</li>
+                <li>Bank of America</li>
+                <li>Wells Fargo</li>
+            </ul>						
+						
 		
 		</article>
 		
@@ -94,71 +112,5 @@
 </html>
 EOF;
 echo $html;
-		$strsql = "";
-		foreach ($_POST as $key => $post) {
-			  // sql command
-			if ($post != "") {
 
-				$strsql="call countIssues('" . $post . "')";
-				generateTable($strsql);
-	}
-}
-
-
-function generateTable($strsql) {
- $mysql_server_name="localhost"; 
-	$mysql_username="root"; 
-	$mysql_password=""; 
-	$mysql_database="company"; 
-	
-	// connect to server
-	$conn = mysql_connect($mysql_server_name, $mysql_username,
-											$mysql_password);
-											
-	if (!$conn) {
-		die('Could not connect: ' . mysql_error());
-	}
-											
-	// run sql command
-	$result=mysql_db_query($mysql_database, $strsql, $conn);
-	// fetch sql result
-	$row=mysql_fetch_row($result);
-	
-	 
-	echo '<font face="verdana">';
-	echo '<table border="1" cellpadding="1" cellspacing="2">';
-
-	// ??????
-	echo "</b><tr></b>";
-	for ($i=0; $i<mysql_num_fields($result); $i++)
-	{
-		echo '<td bgcolor="#00FF00"><b>'.
-		mysql_field_name($result, $i);
-		echo "</b></td></b>";
-	}
-	echo "</tr></b>";
-	// ????????
-	mysql_data_seek($result, 0);
-	// ??????
-	while ($row=mysql_fetch_row($result))
-	{
-		echo "<tr></b>";
-		for ($i=0; $i<mysql_num_fields($result); $i++ )
-		{
-			echo '<td bgcolor="#FFFFFF">';
-			echo $row[$i];
-			echo '</td>';
-		}
-		echo "</tr></b>";
-	}
- 
-	echo "</table></b>";
-	echo "</font>";
-	
-	
-	// ????
-	mysql_free_result($result);
-	// ????
-	mysql_close($conn);  
-}
 ?>

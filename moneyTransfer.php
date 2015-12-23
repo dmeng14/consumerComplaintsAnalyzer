@@ -1,4 +1,14 @@
- <?php
+<?php
+// *******************************************************
+// moneyTransfer.php
+// Version 1.0 
+// Date: 2015-12-03
+// *******************************************************
+ 
+    //import config.php
+	require_once('config.php');
+	require_once('generateTable.php');
+	
  	$html =<<< EOF
 	<!DOCTYPE html>
 	<html>
@@ -10,6 +20,7 @@
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
 	</head>
 	<body>
+	<form action="Process.php" method="POST">
 		<section id="body" class="width">
 			<aside id="sidebar" class="column-left">
 
@@ -23,10 +34,16 @@
 			<nav id="mainnav">
 					<ul>
 							<li><a href="index.php">Home</a></li>
+							<li class="category-item"><a>Financial Products</a></li>
 							<li><a href="debtCollection.php">Debt collection</a></li>
 							<li><a href="creditReporting.php">Credit reporting</a></li>
 							<li><a href="consumerLoan.php">Consumer loan</a></li>
 							<li class="selected-item"><a href="moneyTransfer.php">Money transfers</a></li>
+				
+							<li class="category-item"><a>Financial Companies</a></li>
+							<li><a href="chase.php">Chase</a></li>
+							<li><a href="boa.php">Bank of America</a></li>
+							<li><a href="wf.php">Wells Fargo</a></li>
 
 					</ul>
 			</nav>
@@ -47,6 +64,9 @@
 				submitted to CFPB.
 				</p></blockquote>
 				<p>&nbsp;</p>
+			
+
+
 				<table>
 					<tr>
 						<th>Issues</th>
@@ -56,19 +76,7 @@
 EOF;
 echo $html;
 
-
-$strsql = "select R3.issue, count(complaints.issue) as NumOfComplaints
-		from 
-			/* get issues and sub-issues relating to the product: R3 */
-			(select issue.issue_id, issue.issue, issue.parent_id
-			from issue, (select id 
-						from product
-						where name = 'Money transfers') R2
-			where issue.product_id = R2.id) R3
-		inner join complaints
-		on complaints.issue = R3.issue_id
-		group by R3.issue";				
-
+$strsql = SQL_MONEY_TRANSFERS;				
 generateTable($strsql);
 
 $html =<<< EOF
@@ -76,7 +84,8 @@ $html =<<< EOF
 			<h5>Export Data</h5>
 			
 				<a href="moneyTransferXMLexport.php" class="button">EXCEL</a>
-				<a href="#" class="button button-reversed">PDF</a>
+				<a href="moneyTransferPDFexport.php" class="button button-reversed">PDF</a>
+				<a href="moneyTransferCSVexport.php" class="button">CSV</a>
 				
 			<p>&nbsp;</p>
 EOF;
@@ -95,62 +104,10 @@ echo $html;
 		<div class="clear"></div>
 
 	</section>
+	</form>
 	</body>
 	</html>
 EOF;
 echo $html;
 
-function generateTable($strsql) {
- $mysql_server_name="localhost"; 
-	$mysql_username="root"; 
-	$mysql_password=""; 
-	$mysql_database="company"; 
-	
-	// connect to server
-	$conn = mysql_connect($mysql_server_name, $mysql_username,
-											$mysql_password);
-											
-	if (!$conn) {
-		die('Could not connect: ' . mysql_error());
-	}
-											
-	// run sql command
-	$result=mysql_db_query($mysql_database, $strsql, $conn);
-	// fetch sql result
-	$row=mysql_fetch_row($result);
-	
-
-	// ??????
-	echo "</b><tr></b>";
-	for ($i=2; $i<mysql_num_fields($result); $i++)
-	{
-		echo '<td><b>'.
-		mysql_field_name($result, $i);
-		echo "</b></td></b>";
-	}
-	echo "</tr></b>";
-	// ????????
-	mysql_data_seek($result, 0);
-	// ??????
-	while ($row=mysql_fetch_row($result))
-	{
-		echo "<tr></b>";
-		for ($i=0; $i<mysql_num_fields($result); $i++ )
-		{
-			echo '<td>';
-			echo $row[$i];
-			echo '</td>';
-		}
-		echo "</tr></b>";
-	}
- 
-	echo "</table></b>";
-
-	
-	
-	// ????
-	mysql_free_result($result);
-	// ????
-	mysql_close($conn);  
-}
 ?>

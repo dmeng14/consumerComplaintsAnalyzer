@@ -6,10 +6,10 @@
 // *******************************************************
 
 	require_once('config.php');
-	require_once('exportData.php');	
+	require_once('companyExportData.php');	
 
-	$product = P_T_DEBT_COLLECTION;
-	$strsql=SQL_DEBT_COLLECTION;
+	$product = "Wells Fargo";
+	$strsql=SQL_WF;
 	exportPDF($strsql, $product);
 
 ?>

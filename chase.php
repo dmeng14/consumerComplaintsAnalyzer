@@ -1,13 +1,13 @@
 <?php
 // *******************************************************
-// consumerLoan.php
+// chase.php
 // Version 1.0 
-// Date: 2015-12-03
+// Date: 2015-12-15
 // *******************************************************
  
-   	//import config.php
+//import config.php
 	require_once('config.php');
-	require_once('generateTable.php');
+	require_once('getProductTable.php');
 	
  	$html =<<< EOF
 	<!DOCTYPE html>
@@ -37,11 +37,11 @@
 							<li class="category-item"><a>Financial Products</a></li>
 							<li><a href="debtCollection.php">Debt collection</a></li>
 							<li><a href="creditReporting.php">Credit reporting</a></li>
-							<li class="selected-item"><a href="consumerLoan.php">Consumer loan</a></li>
+							<li><a href="consumerLoan.php">Consumer loan</a></li>
 							<li><a href="moneyTransfer.php">Money transfers</a></li>
 							
 							<li class="category-item"><a>Financial Companies</a></li>
-							<li><a href="chase.php">Chase</a></li>
+							<li class="selected-item"><a href="chase.php">Chase</a></li>
 							<li><a href="boa.php">Bank of America</a></li>
 							<li><a href="wf.php">Wells Fargo</a></li>
 
@@ -56,33 +56,36 @@
 			<article>
 				
 					
-				<h3>Consumer Loan</h3>
+				<h3>Chase</h3>
 
 				<blockquote><p>
-				The number of complaints relating to the issues of this financial product are
-				summarized in the table below. Data representing the most recent 10,000 complaints
-				submitted to CFPB.
+				Chase provides its products and services through operating more than 5,100 branches and 
+				16,100 ATMs nationwide. Check out the financial products and its sub-products
+				provided by Chase below:
 				</p></blockquote>
 				<p>&nbsp;</p>
+			
+
+
 				<table>
 					<tr>
-						<th>Issues</th>
-						<th>Number of Complaints</th>
+						<th>Product</th>
+						<th>Sub-product</th>
 					</tr>
 
 EOF;
 echo $html;
 
-$strsql = SQL_CONSUMER_LOAN;				
+$strsql = SQL_Chase;				
 generateTable($strsql);
 
 $html =<<< EOF
 			<p>&nbsp;</p>
 			<h5>Export Data</h5>
 			
-				<a href="consumerLoanXMLexport.php" class="button">EXCEL</a>
-				<a href="consumerLoanPDFexport.php" class="button button-reversed">PDF</a>
-				<a href="consumerLoanCSVexport.php" class="button">CSV</a>
+				<a href="chaseXMLexport.php" class="button">EXCEL</a>
+				<a href="chasePDFexport.php" class="button button-reversed">PDF</a>
+				<a href="chaseCSVexport.php" class="button">CSV</a>
 				
 			<p>&nbsp;</p>
 EOF;

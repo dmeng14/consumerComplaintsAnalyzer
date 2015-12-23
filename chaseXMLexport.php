@@ -1,15 +1,15 @@
 <?php
 // *******************************************************
-// debtCollectionXMLexport.php
+// moneyTransferXMLexport.php
 // Version 1.0 
-// Date: 2015-12-03
+// Date: 2015-12-15
 // *******************************************************
-
-	require_once('exportData.php');
+  
 	require_once('config.php');
+	require_once('companyExportData.php');
 
-	$product = P_T_DEBT_COLLECTION;
-	$strsql=SQL_DEBT_COLLECTION;
+	$product = 'Chase';
+	$strsql = SQL_Chase;	
 	exportEXCEL($strsql, $product);
 
 ?>
